@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: validator-1-public-key
+data:
+  key.pub: |-
+    0x0422631662a5c294a48ee177d9d3134da3ce0c0aa577aa120ca073ba6e1b07e1885976c54b164a947adacc88e27bd67228c83753e58ef5cb3395c1e477f9c8a7d3

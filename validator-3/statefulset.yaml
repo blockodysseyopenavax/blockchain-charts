@@ -1,0 +1,85 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: validator-3
+spec:
+  selector:
+    matchLabels:
+      app: validator-3
+  serviceName: validator-3
+  #replicas: 1 #default
+  #minReadySeconds: 0 #default
+  template:
+    metadata:
+      labels:
+        app: validator-3
+    spec:
+      #serviceAccountName: validator-3-sa
+      #terminationGracePeriodSeconds: 10
+      initContainers:
+      - name: volume-permission-besu
+        image: busybox
+        command: ["sh", "-c", "chown -R 1000:1000 /opt/besu/database"]
+        volumeMounts:
+        - name: data
+          mountPath: /opt/besu/database
+        securityContext:
+          runAsUser: 0
+      containers:
+      - name: besu
+        image: hyperledger/besu:23.4.0
+        ports:
+        - containerPort: 8545
+          name: rpc-http
+        - containerPort: 8546
+          name: rpc-ws
+        - containerPort: 8547
+          name: rpc-graphql
+        - containerPort: 30303
+          name: rlpx
+        - containerPort: 30303
+          name: discovery
+          protocol: UDP
+        volumeMounts:
+        - name: genesis-json
+          mountPath: /opt/besu/genesis.json
+          subPath: genesis.json
+          readOnly: true
+        - name: config-toml
+          mountPath: /opt/besu/config.toml
+          subPath: config.toml
+          readOnly: true
+        - name: private-key
+          mountPath: /opt/besu/key
+          subPath: key
+          readOnly: true
+        - name: data
+          mountPath: /opt/besu/database
+        #command:
+        args: [--config-file=config.toml]
+        # resources:
+        #   requests:
+        #     cpu: 100m
+        #     memory: 1Gi
+        #   limits:
+        #     cpu: 500m
+        #     memory: 2Gi
+      volumes:
+      - name: genesis-json
+        configMap:
+          name: genesis-json
+      - name: config-toml
+        configMap:
+          name: config-toml
+      - name: private-key
+        secret:
+          secretName: validator-3-private-key
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      #storageClassName: 
+      resources:
+        requests:
+          storage: 1Gi
