@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: bootnode-1
+  name: validator-4
 spec:
   selector:
     matchLabels:
-      app: bootnode-1
-  serviceName: bootnode-1
+      app: validator-4
+  serviceName: validator-4
   #replicas: 1 #default
   #minReadySeconds: 0 #default
   template:
     metadata:
       labels:
-        app: bootnode-1
+        app: validator-4
     spec:
-      #serviceAccountName: bootnode-1-sa
+      #serviceAccountName: validator-4-sa
       #terminationGracePeriodSeconds: 10
       initContainers:
-      - name: volume-permission-besu
+      - name: besu-volume-permission
         image: busybox
         command: ["sh", "-c", "chown -R 1000:1000 /opt/besu/database"]
         volumeMounts:
@@ -73,7 +73,7 @@ spec:
           name: config-toml
       - name: private-key
         secret:
-          secretName: bootnode-1-private-key
+          secretName: validator-4-private-key
   volumeClaimTemplates:
   - metadata:
       name: data

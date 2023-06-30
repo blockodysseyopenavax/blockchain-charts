@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: genesis-json
+data:
+  genesis.json: |-
+    {
+      "config": {
+        "chainId": 1337,
+        "londonBlock": 0,
+        "zeroBaseFee": true,
+        "qbft": {
+          "blockperiodseconds": 12,
+          "epochlength": 32,
+          "requesttimeoutseconds": 24
+        }
+      },
+      "baseFeePerGas": "0x0",
+      "nonce": "0x0",
+      "difficulty": "0x1",
+      "mixHash": "0x63746963616c2062797a616e74696e65206661756c7420746f6c6572616e6365",
+      "timestamp": "0x0",
+      "coinbase": "0x0000000000000000000000000000000000000000",
+      "gasLimit": "0x1c9c380",
+      "extraData": "0xf87aa00000000000000000000000000000000000000000000000000000000000000000f85494ae4675fe25077e5d20da2c1117e10afb95658511942457a2ccc681e2afd55eac5f4e7bb0a9c41e3378948607e549a23c7c455f2b84e4d646e87d8df6075194e206d08e409d1f0e9ecce89c6694a3ff25f345c4c080c0",
+      "alloc": {
+        "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": {
+          "privateKey": "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80",
+          "balance": "10000000000000000000000"
+        },
+        "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": {
+          "privateKey": "0x59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d",
+          "balance": "10000000000000000000000"
+        },
+        "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC": {
+          "privateKey": "0x5de4111afa1a4b94908f83103eb1f1706367c2e68ca870fc3fb9a804cdab365a",
+          "balance": "10000000000000000000000"
+        },
+        "0x90F79bf6EB2c4f870365E785982E1f101E93b906": {
+          "privateKey": "0x7c852118294e51e653712a81e05800f419141751be58f605c371e15141b007a6",
+          "balance": "10000000000000000000000"
+        },
+        "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65": {
+          "privateKey": "0x47e179ec197488593b187f80a00eb0da91f1b9d0b13f8733639f19c30a34926a",
+          "balance": "10000000000000000000000"
+        },
+        "0x28Fb346214e844775650718c694a83dE2E109644": {
+          "balance": "10000000000000000000000"
+        }
+      }
+    }
