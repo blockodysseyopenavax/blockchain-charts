@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.network.name }}-{{ .Values.node.name }}
+  labels:
+    app.kubernetes.io/name: service
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+spec:
+  clusterIP: None
+  selector:
+    app: {{ .Values.network.name }}-{{ .Values.node.name }}
+  ports:
+  - port: 8545
+    name: rpc-http
+  - port: 8546
+    name: rpc-ws
+  - port: 8547
+    name: rpc-graphql
+  - port: 30303
+    name: rlpx
+  - port: 30303
+    name: discovery
+    protocol: UDP
