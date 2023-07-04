@@ -2,7 +2,7 @@
 network:
   bootnode:
     name: bootnode-1
-    enodePublicKey: 2451b817819451af5adda1e1d069857a7f19d644280b3907f1fb44bf8c0c16f0db7bcf0594fab08a8779e1ca0d2efaf2854dc33ae77e748be330e577ccfe2b8d
+    enodePublicKey: "2451b817819451af5adda1e1d069857a7f19d644280b3907f1fb44bf8c0c16f0db7bcf0594fab08a8779e1ca0d2efaf2854dc33ae77e748be330e577ccfe2b8d"
 
 # node configuration
 node:
