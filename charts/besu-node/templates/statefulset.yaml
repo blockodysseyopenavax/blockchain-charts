@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: {{ .Values.network.name }}-{{ .Values.node.name }}
+  namespace: {{ .Release.Namespace }}
   labels:
     app.kubernetes.io/name: statefulset
     app.kubernetes.io/instance: {{ .Release.Name }}
@@ -84,7 +85,6 @@ spec:
       name: data
     spec:
       accessModes: ["ReadWriteOnce"]
-      #storageClassName: 
       resources:
         requests:
           storage: {{ .Values.node.storage }}

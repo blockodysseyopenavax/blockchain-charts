@@ -2,6 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{ .Values.network.name }}-{{ .Values.node.name }}-public-key
+  namespace: {{ .Release.Namespace }}
   labels:
     app.kubernetes.io/name: public-key
     app.kubernetes.io/instance: {{ .Release.Name }}
