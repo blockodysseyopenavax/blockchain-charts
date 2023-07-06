@@ -28,7 +28,7 @@ locals {
   region       = "ap-northeast-2"
   cluster_name = "blockchain-eks-dev"
 
-  namespace = "default"
+  namespace = "devnet"
 
   network_name = "devnet"
 
@@ -233,11 +233,6 @@ resource "kubernetes_ingress_v1" "rpc_ingress" {
   }
 
   depends_on = [
-    helm_release.ingress_nginx,
-    helm_release.bootnode_1,
-    helm_release.validator_1,
-    helm_release.validator_2,
-    helm_release.validator_3,
-    helm_release.validator_4,
+    helm_release.ingress_nginx
   ]
 }
