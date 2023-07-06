@@ -9,5 +9,4 @@ metadata:
     app.kubernetes.io/managed-by: {{ .Release.Service }}
     helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
 data:
-  key.pub: |-
-    {{ .Values.node.publicKey | trim }}
+  key.pub: {{ .Values.node.publicKey | trim | quote }}
