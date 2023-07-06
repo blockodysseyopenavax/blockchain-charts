@@ -1,0 +1,11 @@
+# network configuration
+network:
+  name: devnet
+  chainId: 31337
+  # blockperiodseconds: 12
+  # epochlength: 32
+  # requesttimeoutseconds: 24
+  # eip1559: true
+  bootnode:
+    name: bootnode-1
+    enodePublicKey: "2451b817819451af5adda1e1d069857a7f19d644280b3907f1fb44bf8c0c16f0db7bcf0594fab08a8779e1ca0d2efaf2854dc33ae77e748be330e577ccfe2b8d"

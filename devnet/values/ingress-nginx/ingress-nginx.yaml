@@ -1,0 +1,9 @@
+controller:
+  ingressClassResource:
+    name: devnet-nginx
+    controllerValue: k8s.io/devnet-ingress-nginx
+  service:
+    annotations:
+      service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
+      service.beta.kubernetes.io/aws-load-balancer-type: external
+      service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: ip

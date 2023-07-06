@@ -1,5 +1,6 @@
 # network configuration
 network:
+  name: devnet
   bootnode:
     name: bootnode-1
     enodePublicKey: "2451b817819451af5adda1e1d069857a7f19d644280b3907f1fb44bf8c0c16f0db7bcf0594fab08a8779e1ca0d2efaf2854dc33ae77e748be330e577ccfe2b8d"
@@ -9,3 +10,5 @@ node:
   name: bootnode-1
   privateKey: "0x9acbb6875b08501d164c05655dfe94b69de7567ae4cd0e08b8ef939e5ea6dee2"
   publicKey: "0x042451b817819451af5adda1e1d069857a7f19d644280b3907f1fb44bf8c0c16f0db7bcf0594fab08a8779e1ca0d2efaf2854dc33ae77e748be330e577ccfe2b8d"
+  storage: 1Gi
+  #storageClassName: gp3
