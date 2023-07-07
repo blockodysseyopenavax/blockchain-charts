@@ -35,6 +35,11 @@ resource "helm_release" "bootnode_1" {
   chart     = "../../charts/besu-node"
   values    = ["${file("../values/besu-node/bootnode-1.yaml")}"]
 
+  set {
+    name = "storageClassName"
+    value = ""
+  }
+
   depends_on = [helm_release.config]
 }
 resource "kubernetes_job_v1" "wait_for_bootnodes" {
@@ -66,6 +71,11 @@ resource "helm_release" "validator_1" {
   chart     = "../../charts/besu-node"
   values    = ["${file("../values/besu-node/validator-1.yaml")}"]
 
+  set {
+    name = "storageClassName"
+    value = ""
+  }
+
   depends_on = [
     helm_release.config,
     helm_release.bootnode_1,
@@ -77,6 +87,11 @@ resource "helm_release" "validator_2" {
   name      = "${local.network_name}-validator-2"
   chart     = "../../charts/besu-node"
   values    = ["${file("../values/besu-node/validator-2.yaml")}"]
+
+  set {
+    name = "storageClassName"
+    value = ""
+  }
 
   depends_on = [
     helm_release.config,
@@ -90,6 +105,11 @@ resource "helm_release" "validator_3" {
   chart     = "../../charts/besu-node"
   values    = ["${file("../values/besu-node/validator-3.yaml")}"]
 
+  set {
+    name = "storageClassName"
+    value = ""
+  }
+
   depends_on = [
     helm_release.config,
     helm_release.bootnode_1,
@@ -101,6 +121,11 @@ resource "helm_release" "validator_4" {
   name      = "${local.network_name}-validator-4"
   chart     = "../../charts/besu-node"
   values    = ["${file("../values/besu-node/validator-4.yaml")}"]
+
+  set {
+    name = "storageClassName"
+    value = ""
+  }
 
   depends_on = [
     helm_release.config,

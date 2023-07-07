@@ -11,4 +11,4 @@ node:
   privateKey: "0x1662af287ad36566014c4adebbd1d2cb7011bbbadb32fe9a92d0e1bc889f8ba4"
   publicKey: "0x042e95e5b1c71df511efd214212c0d39bac9fb1dde388582aac786a77f1462b7b8b30c9f75f1d7eebeae436173de1b72789f9dd94f0da3a5581b9cd34563d7fdc8"
   storage: 1Gi
-  #storageClassName: gp3
+  storageClassName: gp3
