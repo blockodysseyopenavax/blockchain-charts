@@ -1,0 +1,40 @@
+apiVersion: kind.x-k8s.io/v1alpha4
+kind: Cluster
+nodes:
+- role: control-plane
+  kubeadmConfigPatches:
+  - |
+    kind: InitConfiguration
+    nodeRegistration:
+      kubeletExtraArgs:
+        node-labels: "ingress-ready=true"
+  # extraPortMappings:
+  # - containerPort: 80
+  #   hostPort: 80
+  #   listenAddress: "127.0.0.1" # not working on mac
+  #   #name: http
+  # - containerPort: 443
+  #   hostPort: 443
+  #   listenAddress: "127.0.0.1"
+  #   #name: https
+  # - containerPort: 8545
+  #   hostPort: 8545
+  #   listenAddress: "127.0.0.1"
+  #   #name: json-rpc 
+  # - containerPort: 8546
+  #   hostPort: 8546
+  #   listenAddress: "127.0.0.1"
+  #   #name: ws
+  # - containerPort: 8547
+  #   hostPort: 8547
+  #   listenAddress: "127.0.0.1"
+  #   #name: graphql 
+  # - containerPort: 30303
+  #   hostPort: 30303
+  #   listenAddress: "127.0.0.1"
+  #   #name: rlpx
+  # - containerPort: 30303
+  #   hostPort: 30303
+  #   listenAddress: "127.0.0.1"
+  #   protocol: UDP
+  #   #name: discovery
