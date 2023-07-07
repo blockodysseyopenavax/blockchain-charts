@@ -4,6 +4,13 @@ controller:
     controllerValue: k8s.io/devnet-ingress-nginx
   service:
     annotations:
+      # https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.5/guide/service/nlb/
       service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
       service.beta.kubernetes.io/aws-load-balancer-type: external
       service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: ip
+      # https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.5/guide/use_cases/nlb_tls_termination/
+      service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:ap-northeast-2:383960880657:certificate/ce195b08-d60a-420c-9011-a55fefea0474
+      service.beta.kubernetes.io/aws-load-balancer-ssl-ports: 443
+    # route https to http as TLS terminates at NLB
+    targetPorts:
+      https: http
