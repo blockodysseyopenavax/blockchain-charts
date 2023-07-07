@@ -45,7 +45,7 @@ resource "helm_release" "bootnode_1" {
 resource "kubernetes_job_v1" "wait_for_bootnodes" {
   metadata {
     namespace = local.namespace
-    name      = "${local.network_name}-wait-for-bootnode-1"
+    name      = "${local.network_name}-wait-for-bootnodes"
   }
   spec {
     template {
