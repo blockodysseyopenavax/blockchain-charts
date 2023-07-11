@@ -36,7 +36,7 @@ resource "helm_release" "bootnode_1" {
   values    = ["${file("../values/besu-node/bootnode-1.yaml")}"]
 
   set {
-    name = "storageClassName"
+    name  = "node.storageClassName"
     value = ""
   }
 
@@ -72,7 +72,7 @@ resource "helm_release" "validator_1" {
   values    = ["${file("../values/besu-node/validator-1.yaml")}"]
 
   set {
-    name = "storageClassName"
+    name  = "node.storageClassName"
     value = ""
   }
 
@@ -89,7 +89,7 @@ resource "helm_release" "validator_2" {
   values    = ["${file("../values/besu-node/validator-2.yaml")}"]
 
   set {
-    name = "storageClassName"
+    name  = "node.storageClassName"
     value = ""
   }
 
@@ -106,7 +106,7 @@ resource "helm_release" "validator_3" {
   values    = ["${file("../values/besu-node/validator-3.yaml")}"]
 
   set {
-    name = "storageClassName"
+    name  = "node.storageClassName"
     value = ""
   }
 
@@ -123,7 +123,7 @@ resource "helm_release" "validator_4" {
   values    = ["${file("../values/besu-node/validator-4.yaml")}"]
 
   set {
-    name = "storageClassName"
+    name  = "node.storageClassName"
     value = ""
   }
 
