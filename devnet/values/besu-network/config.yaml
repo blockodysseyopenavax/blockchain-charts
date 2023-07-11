@@ -1,7 +1,7 @@
 # network configuration
 network:
   name: devnet
-  chainId: 31337
+  chainId: 41337
   # blockperiodseconds: 12
   # epochlength: 32
   # requesttimeoutseconds: 24
