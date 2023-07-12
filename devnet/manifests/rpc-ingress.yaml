@@ -4,13 +4,7 @@ metadata:
   name: devnet-rpc-ingress
   annotations:
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
-    nginx.ingress.kubernetes.io/use-regex: "true"
     nginx.ingress.kubernetes.io/rewrite-target: /
-    nginx.ingress.kubernetes.io/configuration-snippet: |
-      rewrite (?i)/bootnodes/[0-9]?/(.*) /$1 break;
-      rewrite (?i)/bootnodes/[0-9]?$ / break;
-      rewrite (?i)/validators/[0-9]?/(.*) /$1 break;
-      rewrite (?i)/validators/[0-9]?$ / break;
 spec:
   ingressClassName: devnet-nginx
   rules:

@@ -141,15 +141,8 @@ resource "kubernetes_ingress_v1" "rpc_ingress" {
     namespace = local.namespace
     name      = "${local.network_name}-rpc-ingress"
     annotations = {
-      "nginx.ingress.kubernetes.io/ssl-redirect"          = "false"
-      "nginx.ingress.kubernetes.io/use-regex"             = "true"
-      "nginx.ingress.kubernetes.io/rewrite-target"        = "/"
-      "nginx.ingress.kubernetes.io/configuration-snippet" = <<-EOF
-        rewrite (?i)/bootnodes/[0-9]?/(.*) /$1 break;
-        rewrite (?i)/bootnodes/[0-9]?$ / break;
-        rewrite (?i)/validators/[0-9]?/(.*) /$1 break;
-        rewrite (?i)/validators/[0-9]?$ / break;
-      EOF
+      "nginx.ingress.kubernetes.io/ssl-redirect"   = "false"
+      "nginx.ingress.kubernetes.io/rewrite-target" = "/"
     }
   }
   spec {
