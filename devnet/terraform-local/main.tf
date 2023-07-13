@@ -109,7 +109,7 @@ resource "helm_release" "validator_4" {
   ]
 }
 
-# ingress controllers
+# ingress controller
 resource "helm_release" "ingress_nginx" {
   namespace  = local.namespace
   name       = "${local.network_name}-ingress-nginx"
@@ -121,7 +121,7 @@ resource "helm_release" "ingress_nginx" {
   wait = false
 }
 
-# ingresses
+# rpc ingress
 resource "kubernetes_ingress_v1" "rpc_ingress" {
   metadata {
     namespace = local.namespace
@@ -230,4 +230,51 @@ resource "helm_release" "sirato" {
 
   # local cluster's LoadBalancer service may be in pending forever
   wait = false
+}
+
+# sirato ingress controller
+resource "helm_release" "sirato_ingress_nginx" {
+  namespace  = local.namespace
+  name       = "${local.network_name}-sirato-ingress-nginx"
+  chart      = "ingress-nginx"
+  repository = "https://kubernetes.github.io/ingress-nginx"
+  values     = ["${file("../values/ingress-nginx/sirato-ingress-nginx.yaml")}"]
+
+  # local cluster's LoadBalancer service may be in pending forever
+  wait = false
+}
+
+# sirato ingress
+resource "kubernetes_ingress_v1" "sirato_ingress" {
+  metadata {
+    namespace = local.namespace
+    name      = "${local.network_name}-sirato-ingress"
+    annotations = {
+      "nginx.ingress.kubernetes.io/ssl-redirect"   = "false"
+      "nginx.ingress.kubernetes.io/rewrite-target" = "/"
+    }
+  }
+  spec {
+    ingress_class_name = "${local.network_name}-sirato-nginx"
+    rule {
+      http {
+        path {
+          path_type = "Prefix"
+          path      = "/"
+          backend {
+            service {
+              name = "${local.network_name}-sirato-proxy"
+              port {
+                number = 80
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  depends_on = [
+    helm_release.sirato_ingress_nginx
+  ]
 }
