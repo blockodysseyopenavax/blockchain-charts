@@ -230,8 +230,4 @@ resource "helm_release" "sirato" {
 
   # local cluster's LoadBalancer service may be in pending forever
   wait = false
-
-  depends_on = [
-    helm_release.bootnode_1,
-  ]
 }

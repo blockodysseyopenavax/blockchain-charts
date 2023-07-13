@@ -236,8 +236,4 @@ resource "helm_release" "sirato" {
   name      = "${local.network_name}-sirato"
   chart     = "../../charts/sirato-free"
   values    = ["${file("../values/sirato-free/config.yaml")}"]
-
-  depends_on = [
-    helm_release.bootnode_1,
-  ]
 }
