@@ -1,0 +1,4 @@
+apiVersion: v2
+name: sirato-free
+description: sirato free version chart
+version: 0.1.0

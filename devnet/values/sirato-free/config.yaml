@@ -1,0 +1,10 @@
+# network configuration
+network:
+  name: devnet
+
+# sirato configuration
+sirato:
+  targetNode:
+    name: bootnode-1
+  storage: 1Gi
+  storageClassName: gp3
