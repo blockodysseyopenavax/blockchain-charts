@@ -245,3 +245,23 @@ resource "kubernetes_ingress_v1" "rpc_ingress" {
     helm_release.validator_4,
   ]
 }
+
+# sirato explorer
+resource "helm_release" "sirato" {
+  namespace = local.namespace
+  name      = "${local.network_name}-sirato"
+  chart     = "../../charts/sirato-free"
+  values    = ["${file("../values/sirato-free/config.yaml")}"]
+
+  # local cluster's LoadBalancer service may be in pending forever
+  wait = false
+
+  set {
+    name  = "sirato.storageClassName"
+    value = ""
+  }
+
+  depends_on = [
+    helm_release.bootnode_1,
+  ]
+}
