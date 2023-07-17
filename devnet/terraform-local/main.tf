@@ -127,7 +127,6 @@ resource "kubernetes_ingress_v1" "rpc_ingress" {
     namespace = local.namespace
     name      = "${local.network_name}-rpc-ingress"
     annotations = {
-      "nginx.ingress.kubernetes.io/ssl-redirect"   = "false"
       "nginx.ingress.kubernetes.io/rewrite-target" = "/"
     }
   }
@@ -250,7 +249,6 @@ resource "kubernetes_ingress_v1" "sirato_ingress" {
     namespace = local.namespace
     name      = "${local.network_name}-sirato-ingress"
     annotations = {
-      "nginx.ingress.kubernetes.io/ssl-redirect"   = "false"
       "nginx.ingress.kubernetes.io/rewrite-target" = "/"
     }
   }
