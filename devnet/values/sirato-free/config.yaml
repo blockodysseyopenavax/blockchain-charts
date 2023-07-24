@@ -5,6 +5,6 @@ network:
 # sirato configuration
 sirato:
   targetNode:
-    name: bootnode-1
+    name: rpc-1
   storage: 1Gi
   # storageClassName: gp3

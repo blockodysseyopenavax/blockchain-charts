@@ -13,41 +13,6 @@ spec:
         path: /
         backend:
           service:
-            name: devnet-bootnode-1
-            port:
-              number: 8545
-      - pathType: Prefix
-        path: /bootnodes/1
-        backend:
-          service:
-            name: devnet-bootnode-1
-            port:
-              number: 8545
-      - pathType: Prefix
-        path: /validators/1
-        backend:
-          service:
-            name: devnet-validator-1
-            port:
-              number: 8545
-      - pathType: Prefix
-        path: /validators/2
-        backend:
-          service:
-            name: devnet-validator-2
-            port:
-              number: 8545
-      - pathType: Prefix
-        path: /validators/3
-        backend:
-          service:
-            name: devnet-validator-3
-            port:
-              number: 8545
-      - pathType: Prefix
-        path: /validators/4
-        backend:
-          service:
-            name: devnet-validator-4
+            name: devnet-rpc-1
             port:
               number: 8545

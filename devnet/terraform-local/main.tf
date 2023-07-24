@@ -109,6 +109,20 @@ resource "helm_release" "validator_4" {
   ]
 }
 
+# regular nodes
+resource "helm_release" "rpc_1" {
+  namespace = local.namespace
+  name      = "${local.network_name}-rpc-1"
+  chart     = "../../charts/besu-node"
+  values    = ["${file("../values/besu-node/rpc-1.yaml")}"]
+
+  depends_on = [
+    helm_release.config,
+    helm_release.bootnode_1,
+    kubernetes_job_v1.wait_for_bootnodes
+  ]
+}
+
 # ingress controller
 resource "helm_release" "ingress_nginx" {
   namespace  = local.namespace
@@ -139,67 +153,7 @@ resource "kubernetes_ingress_v1" "rpc_ingress" {
           path      = "/"
           backend {
             service {
-              name = "${local.network_name}-bootnode-1"
-              port {
-                number = 8545
-              }
-            }
-          }
-        }
-        path {
-          path_type = "Prefix"
-          path      = "/bootnodes/1"
-          backend {
-            service {
-              name = "${local.network_name}-bootnode-1"
-              port {
-                number = 8545
-              }
-            }
-          }
-        }
-        path {
-          path_type = "Prefix"
-          path      = "/validators/1"
-          backend {
-            service {
-              name = "${local.network_name}-validator-1"
-              port {
-                number = 8545
-              }
-            }
-          }
-        }
-        path {
-          path_type = "Prefix"
-          path      = "/validators/2"
-          backend {
-            service {
-              name = "${local.network_name}-validator-2"
-              port {
-                number = 8545
-              }
-            }
-          }
-        }
-        path {
-          path_type = "Prefix"
-          path      = "/validators/3"
-          backend {
-            service {
-              name = "${local.network_name}-validator-3"
-              port {
-                number = 8545
-              }
-            }
-          }
-        }
-        path {
-          path_type = "Prefix"
-          path      = "/validators/4"
-          backend {
-            service {
-              name = "${local.network_name}-validator-4"
+              name = "${local.network_name}-rpc-1"
               port {
                 number = 8545
               }
@@ -212,11 +166,7 @@ resource "kubernetes_ingress_v1" "rpc_ingress" {
 
   depends_on = [
     helm_release.ingress_nginx,
-    helm_release.bootnode_1,
-    helm_release.validator_1,
-    helm_release.validator_2,
-    helm_release.validator_3,
-    helm_release.validator_4,
+    helm_release.rpc_1,
   ]
 }
 
