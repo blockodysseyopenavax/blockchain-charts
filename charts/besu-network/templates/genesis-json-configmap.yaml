@@ -13,21 +13,21 @@ data:
     {
       "config": {
         "chainId": {{ .Values.network.chainId }},
-{{- if .Values.network.eip1559 }}
+        {{- if .Values.network.eip1559 }}
         "londonBlock": 0,
         "zeroBaseFee": true,
-{{- else }}
+        {{- else }}
         "berlinBlock": 0,
-{{- end }}
+        {{- end }}
         "qbft": {
           "blockperiodseconds": {{ .Values.network.blockperiodseconds }},
           "epochlength": {{ .Values.network.epochlength }},
           "requesttimeoutseconds": {{ .Values.network.requesttimeoutseconds }}
         }
       },
-{{- if .Values.network.eip1559 }}
+      {{- if .Values.network.eip1559 }}
       "baseFeePerGas": "0x0",
-{{- end }}
+      {{- end }}
       "nonce": "0x0",
       "difficulty": "0x1",
       "mixHash": "0x63746963616c2062797a616e74696e65206661756c7420746f6c6572616e6365",
