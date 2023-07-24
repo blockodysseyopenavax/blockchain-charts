@@ -207,7 +207,8 @@ resource "kubernetes_ingress_v1" "sirato_ingress" {
     namespace = local.namespace
     name      = "${local.network_name}-sirato-ingress"
     annotations = {
-      "nginx.ingress.kubernetes.io/rewrite-target" = "/"
+      "nginx.ingress.kubernetes.io/rewrite-target" = "/$1"
+      "nginx.ingress.kubernetes.io/use-regex"      = "true"
     }
   }
   spec {
@@ -216,12 +217,24 @@ resource "kubernetes_ingress_v1" "sirato_ingress" {
       http {
         path {
           path_type = "Prefix"
-          path      = "/"
+          path      = "/api/(.*)"
           backend {
             service {
-              name = "${local.network_name}-sirato-proxy"
+              name = "${local.network_name}-sirato-api"
               port {
-                number = 80
+                number = 8090
+              }
+            }
+          }
+        }
+        path {
+          path_type = "Prefix"
+          path      = "/(.*)"
+          backend {
+            service {
+              name = "${local.network_name}-sirato-web"
+              port {
+                number = 3000
               }
             }
           }
