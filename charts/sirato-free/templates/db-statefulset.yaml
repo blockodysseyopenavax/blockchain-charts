@@ -14,8 +14,6 @@ spec:
     matchLabels:
       app.kubernetes.io/name: db
       app.kubernetes.io/instance: {{ .Release.Name }}
-      app.kubernetes.io/managed-by: {{ .Release.Service }}
-      helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
   #replicas: 1 #default
   #minReadySeconds: 0 #default
   template:
