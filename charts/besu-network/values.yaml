@@ -1,3 +1,6 @@
+nameOverride: ""
+fullnameOverride: ""
+
 # network configuration
 network:
   name: devnet
