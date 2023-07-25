@@ -4,9 +4,7 @@ metadata:
   name: {{ .Values.network.name }}-{{ .Values.node.name }}-public-key
   namespace: {{ .Release.Namespace }}
   labels:
-    app.kubernetes.io/name: public-key
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/managed-by: {{ .Release.Service }}
-    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    {{- include "besu-node.labels" . | nindent 4 }}
+    app.kubernetes.io/component: public-key
 data:
   key.pub: {{ .Values.node.publicKey | trim | quote }}

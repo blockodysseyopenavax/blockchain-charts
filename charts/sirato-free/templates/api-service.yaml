@@ -4,15 +4,13 @@ metadata:
   name: {{ .Values.network.name }}-sirato-api
   namespace: {{ .Release.Namespace }}
   labels:
-    app.kubernetes.io/name: api
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/managed-by: {{ .Release.Service }}
-    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    {{- include "sirato-free.labels" . | nindent 4 }}
+    app.kubernetes.io/component: api
 spec:
   clusterIP: None
   selector:
-    app.kubernetes.io/name: api
-    app.kubernetes.io/instance: {{ .Release.Name }}
+    {{- include "sirato-free.selectorLabels" . | nindent 4 }}
+    app.kubernetes.io/component: api
   ports:
   - port: 8090
     name: api

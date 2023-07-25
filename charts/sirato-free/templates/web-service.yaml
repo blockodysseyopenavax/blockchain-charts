@@ -4,15 +4,13 @@ metadata:
   name: {{ .Values.network.name }}-sirato-web
   namespace: {{ .Release.Namespace }}
   labels:
-    app.kubernetes.io/name: web
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/managed-by: {{ .Release.Service }}
-    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    {{- include "sirato-free.labels" . | nindent 4 }}
+    app.kubernetes.io/component: web
 spec:
   clusterIP: None
   selector:
-    app.kubernetes.io/name: web
-    app.kubernetes.io/instance: {{ .Release.Name }}
+    {{- include "sirato-free.selectorLabels" . | nindent 4 }}
+    app.kubernetes.io/component: web
   ports:
   - port: 3000
     name: web

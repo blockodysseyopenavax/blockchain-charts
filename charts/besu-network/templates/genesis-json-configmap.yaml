@@ -4,10 +4,8 @@ metadata:
   name: {{ .Values.network.name }}-genesis-json
   namespace: {{ .Release.Namespace }}
   labels:
-    app.kubernetes.io/name: genesis-json
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/managed-by: {{ .Release.Service }}
-    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    {{- include "besu-network.labels" . | nindent 4 }}
+    app.kubernetes.io/component: genesis-json
 data:
   genesis.json: |-
     {
