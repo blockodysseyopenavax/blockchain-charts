@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Values.network.name }}-config-toml
+  name: {{ .Values.network.name }}-{{ .Values.node.name }}-config-toml
   namespace: {{ .Release.Namespace }}
   labels:
     app.kubernetes.io/name: config-toml

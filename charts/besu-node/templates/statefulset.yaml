@@ -51,13 +51,13 @@ spec:
           mountPath: /opt/besu/genesis.json
           subPath: genesis.json
           readOnly: true
-        - name: config-toml
-          mountPath: /opt/besu/config.toml
-          subPath: config.toml
-          readOnly: true
         - name: private-key
           mountPath: /opt/besu/key
           subPath: key
+          readOnly: true
+        - name: config-toml
+          mountPath: /opt/besu/config.toml
+          subPath: config.toml
           readOnly: true
         - name: data
           mountPath: /opt/besu/database
@@ -74,12 +74,12 @@ spec:
       - name: genesis-json
         configMap:
           name: {{ .Values.network.name }}-genesis-json
-      - name: config-toml
-        configMap:
-          name: {{ .Values.network.name }}-config-toml
       - name: private-key
         secret:
           secretName: {{ .Values.network.name }}-{{ .Values.node.name }}-private-key
+      - name: config-toml
+        configMap:
+          name: {{ .Values.network.name }}-{{ .Values.node.name }}-config-toml
   volumeClaimTemplates:
   - metadata:
       name: data
