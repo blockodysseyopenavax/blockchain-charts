@@ -6,7 +6,6 @@ network:
 
 # sirato configuration
 sirato:
-  targetNode:
-    name: rpc-1
+  nodeEndpoint: "http://devnet-rpc-1:8545"
   storage: 1Gi
   # storageClassName: gp3
