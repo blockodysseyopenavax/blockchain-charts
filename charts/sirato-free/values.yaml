@@ -1,13 +1,8 @@
 nameOverride: ""
 fullnameOverride: ""
 
-# network configuration
-network:
-  name: devnet
-
 # sirato configuration
 sirato:
-  targetNode:
-    name: bootnode-1
+  nodeEndpoint: ""
   storage: 1Gi
   storageClassName: ""

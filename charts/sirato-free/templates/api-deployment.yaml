@@ -34,6 +34,6 @@ spec:
         - name: MONGO_CREATE_INDICES
           value: "true"
         - name: NODE_ENDPOINT
-          value: "http://{{ .Values.network.name }}-{{ .Values.sirato.targetNode.name }}:8545"
+          value: {{ .Values.sirato.nodeEndpoint | quote }}
         - name: REINDEX_ENDPOINT
           value: "http://{{ include "sirato-free.fullname" . }}-ingestion:8095/reindex"

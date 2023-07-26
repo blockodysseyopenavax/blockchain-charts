@@ -32,4 +32,4 @@ spec:
         - name: MONGO_DB_NAME
           value: epirus
         - name: NODE_ENDPOINT
-          value: "http://{{ .Values.network.name }}-{{ .Values.sirato.targetNode.name }}:8545"
+          value: {{ .Values.sirato.nodeEndpoint | quote }}
