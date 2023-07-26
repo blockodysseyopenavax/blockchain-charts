@@ -1,6 +1,7 @@
+fullnameOverride: "localnet-validator-3"
+
 # network configuration
 network:
-  name: localnet
   chainId: 31337
   blockperiodseconds: 12
   epochlength: 32
@@ -9,9 +10,8 @@ network:
 
 # node configuration
 node:
-  name: validator-3
   privateKey: "0xf3113fe931d627323fe9b29237778c3c2310beadc0e150b16e768720d92e3768"
   publicKey: "0x042ffd1612758ab5d93a66ad72fd35a043f180d977c1201213f715502a686c670fbbd8587f5455530035c52b824262ee44f981709e7292413728a81af3794aae19"
   storage: 1Gi
   bootnodes:
-  - "enode://2451b817819451af5adda1e1d069857a7f19d644280b3907f1fb44bf8c0c16f0db7bcf0594fab08a8779e1ca0d2efaf2854dc33ae77e748be330e577ccfe2b8d@localnet-bootnode-1.default.svc.cluster.local:30303"
+  - "enode://2451b817819451af5adda1e1d069857a7f19d644280b3907f1fb44bf8c0c16f0db7bcf0594fab08a8779e1ca0d2efaf2854dc33ae77e748be330e577ccfe2b8d@localnet-bootnode-1:30303"
