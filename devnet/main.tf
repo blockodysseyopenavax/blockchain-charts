@@ -41,8 +41,8 @@ locals {
 resource "helm_release" "bootnode_1" {
   namespace = local.namespace
   name      = "${local.network_name}-bootnode-1"
-  chart     = "../../charts/besu-node"
-  values    = ["${file("../values/besu-node/bootnode-1.yaml")}"]
+  chart     = "../charts/besu-node"
+  values    = ["${file("values/besu-node/bootnode-1.yaml")}"]
 }
 resource "kubernetes_job_v1" "wait_for_bootnodes" {
   metadata {
@@ -70,8 +70,8 @@ resource "kubernetes_job_v1" "wait_for_bootnodes" {
 resource "helm_release" "validator_1" {
   namespace = local.namespace
   name      = "${local.network_name}-validator-1"
-  chart     = "../../charts/besu-node"
-  values    = ["${file("../values/besu-node/validator-1.yaml")}"]
+  chart     = "../charts/besu-node"
+  values    = ["${file("values/besu-node/validator-1.yaml")}"]
 
   depends_on = [
     helm_release.bootnode_1,
@@ -81,8 +81,8 @@ resource "helm_release" "validator_1" {
 resource "helm_release" "validator_2" {
   namespace = local.namespace
   name      = "${local.network_name}-validator-2"
-  chart     = "../../charts/besu-node"
-  values    = ["${file("../values/besu-node/validator-2.yaml")}"]
+  chart     = "../charts/besu-node"
+  values    = ["${file("values/besu-node/validator-2.yaml")}"]
 
   depends_on = [
     helm_release.bootnode_1,
@@ -92,8 +92,8 @@ resource "helm_release" "validator_2" {
 resource "helm_release" "validator_3" {
   namespace = local.namespace
   name      = "${local.network_name}-validator-3"
-  chart     = "../../charts/besu-node"
-  values    = ["${file("../values/besu-node/validator-3.yaml")}"]
+  chart     = "../charts/besu-node"
+  values    = ["${file("values/besu-node/validator-3.yaml")}"]
 
   depends_on = [
     helm_release.bootnode_1,
@@ -103,8 +103,8 @@ resource "helm_release" "validator_3" {
 resource "helm_release" "validator_4" {
   namespace = local.namespace
   name      = "${local.network_name}-validator-4"
-  chart     = "../../charts/besu-node"
-  values    = ["${file("../values/besu-node/validator-4.yaml")}"]
+  chart     = "../charts/besu-node"
+  values    = ["${file("values/besu-node/validator-4.yaml")}"]
 
   depends_on = [
     helm_release.bootnode_1,
@@ -116,8 +116,8 @@ resource "helm_release" "validator_4" {
 resource "helm_release" "rpc_1" {
   namespace = local.namespace
   name      = "${local.network_name}-rpc-1"
-  chart     = "../../charts/besu-node"
-  values    = ["${file("../values/besu-node/rpc-1.yaml")}"]
+  chart     = "../charts/besu-node"
+  values    = ["${file("values/besu-node/rpc-1.yaml")}"]
 
   depends_on = [
     helm_release.bootnode_1,
@@ -131,7 +131,7 @@ resource "helm_release" "ingress_nginx" {
   name       = "${local.network_name}-ingress-nginx"
   chart      = "ingress-nginx"
   repository = "https://kubernetes.github.io/ingress-nginx"
-  values     = ["${file("../values/ingress-nginx/ingress-nginx.yaml")}"]
+  values     = ["${file("values/ingress-nginx/ingress-nginx.yaml")}"]
 }
 
 # rpc ingress
@@ -173,8 +173,8 @@ resource "kubernetes_ingress_v1" "rpc_ingress" {
 resource "helm_release" "sirato" {
   namespace = local.namespace
   name      = "${local.network_name}-sirato"
-  chart     = "../../charts/sirato-free"
-  values    = ["${file("../values/sirato-free/config.yaml")}"]
+  chart     = "../charts/sirato-free"
+  values    = ["${file("values/sirato-free/config.yaml")}"]
 }
 
 # sirato ingress controller
@@ -183,7 +183,7 @@ resource "helm_release" "sirato_ingress_nginx" {
   name       = "${local.network_name}-sirato-ingress-nginx"
   chart      = "ingress-nginx"
   repository = "https://kubernetes.github.io/ingress-nginx"
-  values     = ["${file("../values/ingress-nginx/sirato-ingress-nginx.yaml")}"]
+  values     = ["${file("values/ingress-nginx/sirato-ingress-nginx.yaml")}"]
 }
 
 # sirato ingress
