@@ -1,0 +1,17 @@
+# network configuration
+network:
+  name: devnet
+  chainId: 41337
+  blockperiodseconds: 12
+  epochlength: 32
+  requesttimeoutseconds: 24
+  eip1559: true
+
+# node configuration
+node:
+  name: validator-1
+  privateKey: "0x3695db8e9cf155b0d2e4b226d6788754389d33e037013256afd49580a35d0180"
+  publicKey: "0x0422631662a5c294a48ee177d9d3134da3ce0c0aa577aa120ca073ba6e1b07e1885976c54b164a947adacc88e27bd67228c83753e58ef5cb3395c1e477f9c8a7d3"
+  storage: 1Gi
+  bootnodes:
+  - "enode://2451b817819451af5adda1e1d069857a7f19d644280b3907f1fb44bf8c0c16f0db7bcf0594fab08a8779e1ca0d2efaf2854dc33ae77e748be330e577ccfe2b8d@devnet-bootnode-1.default.svc.cluster.local:30303"

@@ -1,0 +1,17 @@
+# network configuration
+network:
+  name: devnet
+  chainId: 41337
+  blockperiodseconds: 12
+  epochlength: 32
+  requesttimeoutseconds: 24
+  eip1559: true
+
+# node configuration
+node:
+  name: rpc-1
+  privateKey: "0xed1fbcbe5d7a845d834deca7cdb3894d7ce48b899b0de3ec0bb36a9d6a3c729c"
+  publicKey: "0x04377ce9b1bfabbd6fb564dd0bc4217744174f2dd4c07add51ccdd4883f150bb5cce16fb526f7772468248c2e6a2590a13599feee293d2269b9af9a76b5c796eb1"
+  storage: 1Gi
+  bootnodes:
+  - "enode://2451b817819451af5adda1e1d069857a7f19d644280b3907f1fb44bf8c0c16f0db7bcf0594fab08a8779e1ca0d2efaf2854dc33ae77e748be330e577ccfe2b8d@devnet-bootnode-1.default.svc.cluster.local:30303"
