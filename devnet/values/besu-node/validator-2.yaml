@@ -6,9 +6,6 @@ network:
   epochlength: 32
   requesttimeoutseconds: 24
   eip1559: true
-  bootnode:
-    name: bootnode-1
-    publicKey: "0x042451b817819451af5adda1e1d069857a7f19d644280b3907f1fb44bf8c0c16f0db7bcf0594fab08a8779e1ca0d2efaf2854dc33ae77e748be330e577ccfe2b8d"
 
 # node configuration
 node:
@@ -17,3 +14,5 @@ node:
   publicKey: "0x047477d1eb2a4accd05b1c7db38cf3054d4a8cdf4efc5eff7d8a282ac9abaac06dd4266362b58c4c10cab0daebcbdd493023f03fb719f80039e72a4617cd57c6ae"
   storage: 1Gi
   # storageClassName: gp3
+  bootnodes:
+  - "enode://2451b817819451af5adda1e1d069857a7f19d644280b3907f1fb44bf8c0c16f0db7bcf0594fab08a8779e1ca0d2efaf2854dc33ae77e748be330e577ccfe2b8d@devnet-bootnode-1.devnet.svc.cluster.local:30303"
