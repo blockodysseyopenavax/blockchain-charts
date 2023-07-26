@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.network.name }}-sirato-web
+  name: {{ include "sirato-free.fullname" . }}-web
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "sirato-free.labels" . | nindent 4 }}
@@ -19,7 +19,7 @@ spec:
         {{- include "sirato-free.selectorLabels" . | nindent 8 }}
         app.kubernetes.io/component: web
     spec:
-      #serviceAccountName: sirato-web-sa
+      #serviceAccountName: {{ include "sirato-free.fullname" . }}-web
       #terminationGracePeriodSeconds: 10
       containers:
       - name: web

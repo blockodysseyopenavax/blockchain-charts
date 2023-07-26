@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.network.name }}-sirato-ingestion
+  name: {{ include "sirato-free.fullname" . }}-ingestion
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "sirato-free.labels" . | nindent 4 }}
@@ -19,7 +19,7 @@ spec:
         {{- include "sirato-free.selectorLabels" . | nindent 8 }}
         app.kubernetes.io/component: ingestion
     spec:
-      #serviceAccountName: sirato-ingestion-sa
+      #serviceAccountName: {{ include "sirato-free.fullname" . }}-ingestion
       #terminationGracePeriodSeconds: 10
       containers:
       - name: ingestion
@@ -28,7 +28,7 @@ spec:
         - containerPort: 8095
         env:
         - name: MONGO_CLIENT_URI
-          value: "mongodb://{{ .Values.network.name }}-sirato-db"
+          value: "mongodb://{{ include "sirato-free.fullname" . }}-db"
         - name: MONGO_DB_NAME
           value: epirus
         - name: NODE_ENDPOINT

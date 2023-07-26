@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.network.name }}-sirato-api
+  name: {{ include "sirato-free.fullname" . }}-api
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "sirato-free.labels" . | nindent 4 }}
@@ -19,7 +19,7 @@ spec:
         {{- include "sirato-free.selectorLabels" . | nindent 8 }}
         app.kubernetes.io/component: api
     spec:
-      #serviceAccountName: sirato-api-sa
+      #serviceAccountName: {{ include "sirato-free.fullname" . }}-api
       #terminationGracePeriodSeconds: 10
       containers:
       - name: api
@@ -28,7 +28,7 @@ spec:
         - containerPort: 8090
         env:
         - name: MONGO_CLIENT_URI
-          value: "mongodb://{{ .Values.network.name }}-sirato-db"
+          value: "mongodb://{{ include "sirato-free.fullname" . }}-db"
         - name: MONGO_DB_NAME
           value: epirus
         - name: MONGO_CREATE_INDICES
@@ -36,4 +36,4 @@ spec:
         - name: NODE_ENDPOINT
           value: "http://{{ .Values.network.name }}-{{ .Values.sirato.targetNode.name }}:8545"
         - name: REINDEX_ENDPOINT
-          value: "http://{{ .Values.network.name }}-sirato-ingestion:8095/reindex"
+          value: "http://{{ include "sirato-free.fullname" . }}-ingestion:8095/reindex"

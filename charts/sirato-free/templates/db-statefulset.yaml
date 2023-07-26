@@ -1,13 +1,13 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ .Values.network.name }}-sirato-db
+  name: {{ include "sirato-free.fullname" . }}-db
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "sirato-free.labels" . | nindent 4 }}
     app.kubernetes.io/component: db
 spec:
-  serviceName: {{ .Values.network.name }}-sirato-db
+  serviceName: {{ include "sirato-free.fullname" . }}-db
   selector:
     matchLabels:
       {{- include "sirato-free.selectorLabels" . | nindent 6 }}
@@ -20,7 +20,7 @@ spec:
         {{- include "sirato-free.selectorLabels" . | nindent 8 }}
         app.kubernetes.io/component: db
     spec:
-      #serviceAccountName: sirato-db-sa
+      #serviceAccountName: {{ include "sirato-free.fullname" . }}-db
       #terminationGracePeriodSeconds: 10
       containers:
       - name: db
