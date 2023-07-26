@@ -73,7 +73,7 @@ spec:
       volumes:
       - name: genesis-json
         configMap:
-          name: {{ .Values.network.name }}-genesis-json
+          name: {{ .Values.network.name }}-{{ .Values.node.name }}-genesis-json
       - name: private-key
         secret:
           secretName: {{ .Values.network.name }}-{{ .Values.node.name }}-private-key
