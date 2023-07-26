@@ -13,7 +13,7 @@ provider "helm" {
 locals {
   namespace = "default"
 
-  network_name = "devnet"
+  network_name = "localnet"
 
   tags = {
     terraform = "true"

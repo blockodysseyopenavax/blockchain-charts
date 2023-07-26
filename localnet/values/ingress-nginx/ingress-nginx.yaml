@@ -1,7 +1,7 @@
 controller:
   ingressClassResource:
-    name: devnet-nginx
-    controllerValue: k8s.io/devnet-ingress-nginx
+    name: localnet-nginx
+    controllerValue: k8s.io/localnet-ingress-nginx
   service:
     annotations:
       # https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.5/guide/service/nlb/

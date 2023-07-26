@@ -1,8 +1,8 @@
-fullnameOverride: "devnet-sirato"
+fullnameOverride: "localnet-sirato"
 
 # network configuration
 network:
-  name: devnet
+  name: localnet
 
 # sirato configuration
 sirato:
