@@ -1,3 +1,5 @@
+fullnameOverride: "devnet-sirato"
+
 # network configuration
 network:
   name: devnet
