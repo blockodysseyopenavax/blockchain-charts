@@ -62,7 +62,7 @@ Create the name of the service account to use
 {{- end }}
 
 {{- /* Define the toEnodePublicKey function */}}
-{{- define "toEnodePublicKey" }}
+{{- define "besu-node.toEnodePublicKey" }}
 {{- $publicKey := . }}
 {{- if hasPrefix "0x" $publicKey }}
 {{-   $publicKey = trimPrefix "0x" $publicKey }}

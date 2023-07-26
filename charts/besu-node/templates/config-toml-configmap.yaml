@@ -21,7 +21,7 @@ data:
     # bootnode
     Xdns-enabled=true
     Xdns-update-enabled=true
-    bootnodes=["enode://{{ include "toEnodePublicKey" .Values.network.bootnode.publicKey }}@{{ .Values.network.name }}-{{ .Values.network.bootnode.name }}.{{ .Release.Namespace }}.svc.cluster.local:30303"]
+    bootnodes=["enode://{{ include "besu-node.toEnodePublicKey" .Values.network.bootnode.publicKey }}@{{ .Values.network.name }}-{{ .Values.network.bootnode.name }}.{{ .Release.Namespace }}.svc.cluster.local:30303"]
 
     # jsonrpc http
     rpc-http-enabled=true
