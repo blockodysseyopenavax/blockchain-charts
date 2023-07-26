@@ -72,3 +72,15 @@ Create the name of the service account to use
 {{- end }}
 {{- $publicKey }}
 {{- end }}
+
+{{/* Define bootnodes array */}}
+{{- define "besu-node.bootnodes" -}}
+{{- "[" -}}
+{{- range $index, $value := .Values.node.bootnodes -}}
+{{- if $index }}
+{{- ", " -}}
+{{- end }}
+{{- quote $value }}
+{{- end }}
+{{- "]" -}}
+{{- end }}
