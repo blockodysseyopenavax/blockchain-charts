@@ -73,13 +73,13 @@ spec:
       volumes:
       - name: genesis-json
         configMap:
-          name: {{ .Values.network.name }}-{{ .Values.node.name }}-genesis-json
+          name: {{ include "besu-node.fullname" . }}-genesis-json
       - name: private-key
         secret:
-          secretName: {{ .Values.network.name }}-{{ .Values.node.name }}-private-key
+          secretName: {{ include "besu-node.fullname" . }}-private-key
       - name: config-toml
         configMap:
-          name: {{ .Values.network.name }}-{{ .Values.node.name }}-config-toml
+          name: {{ include "besu-node.fullname" . }}-config-toml
   volumeClaimTemplates:
   - metadata:
       name: data
