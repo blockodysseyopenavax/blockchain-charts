@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ .Values.network.name }}-{{ .Values.node.name }}
+  name: {{ include "besu-node.fullname" . }}
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "besu-node.labels" . | nindent 4 }}
@@ -11,7 +11,7 @@ spec:
     matchLabels:
       {{- include "besu-node.selectorLabels" . | nindent 6 }}
       app.kubernetes.io/component: node
-  serviceName: {{ .Values.network.name }}-{{ .Values.node.name }}
+  serviceName: {{ include "besu-node.fullname" . }}
   #replicas: 1 #default
   #minReadySeconds: 0 #default
   template:
@@ -20,7 +20,7 @@ spec:
         {{- include "besu-node.selectorLabels" . | nindent 8 }}
         app.kubernetes.io/component: node
     spec:
-      #serviceAccountName: validator-1-sa
+      #serviceAccountName: {{ include "besu-node.fullname" . }}
       #terminationGracePeriodSeconds: 10
       initContainers:
       - name: besu-volume-permission
