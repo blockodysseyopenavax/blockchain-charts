@@ -37,22 +37,12 @@ locals {
   }
 }
 
-# configs
-resource "helm_release" "config" {
-  namespace = local.namespace
-  name      = "${local.network_name}-config"
-  chart     = "../../charts/besu-network"
-  values    = ["${file("../values/besu-network/config.yaml")}"]
-}
-
 # bootnodes
 resource "helm_release" "bootnode_1" {
   namespace = local.namespace
   name      = "${local.network_name}-bootnode-1"
   chart     = "../../charts/besu-node"
   values    = ["${file("../values/besu-node/bootnode-1.yaml")}"]
-
-  depends_on = [helm_release.config]
 }
 resource "kubernetes_job_v1" "wait_for_bootnodes" {
   metadata {
@@ -84,7 +74,6 @@ resource "helm_release" "validator_1" {
   values    = ["${file("../values/besu-node/validator-1.yaml")}"]
 
   depends_on = [
-    helm_release.config,
     helm_release.bootnode_1,
     kubernetes_job_v1.wait_for_bootnodes
   ]
@@ -96,7 +85,6 @@ resource "helm_release" "validator_2" {
   values    = ["${file("../values/besu-node/validator-2.yaml")}"]
 
   depends_on = [
-    helm_release.config,
     helm_release.bootnode_1,
     kubernetes_job_v1.wait_for_bootnodes
   ]
@@ -108,7 +96,6 @@ resource "helm_release" "validator_3" {
   values    = ["${file("../values/besu-node/validator-3.yaml")}"]
 
   depends_on = [
-    helm_release.config,
     helm_release.bootnode_1,
     kubernetes_job_v1.wait_for_bootnodes
   ]
@@ -120,7 +107,6 @@ resource "helm_release" "validator_4" {
   values    = ["${file("../values/besu-node/validator-4.yaml")}"]
 
   depends_on = [
-    helm_release.config,
     helm_release.bootnode_1,
     kubernetes_job_v1.wait_for_bootnodes
   ]
@@ -134,7 +120,6 @@ resource "helm_release" "rpc_1" {
   values    = ["${file("../values/besu-node/rpc-1.yaml")}"]
 
   depends_on = [
-    helm_release.config,
     helm_release.bootnode_1,
     kubernetes_job_v1.wait_for_bootnodes
   ]

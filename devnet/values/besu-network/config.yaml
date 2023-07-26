@@ -1,8 +1,0 @@
-# network configuration
-network:
-  name: devnet
-  chainId: 41337
-  # blockperiodseconds: 12
-  # epochlength: 32
-  # requesttimeoutseconds: 24
-  # eip1559: true
