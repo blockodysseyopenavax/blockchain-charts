@@ -1,9 +1,5 @@
 fullnameOverride: "devnet-sirato"
 
-# network configuration
-network:
-  name: devnet
-
 # sirato configuration
 sirato:
   nodeEndpoint: "http://devnet-rpc-1:8545"
