@@ -3,7 +3,7 @@ fullnameOverride: ""
 
 # network configuration
 network:
-  chainId: 1337
+  chainId: 31337
   blockperiodseconds: 12
   epochlength: 32
   requesttimeoutseconds: 24
