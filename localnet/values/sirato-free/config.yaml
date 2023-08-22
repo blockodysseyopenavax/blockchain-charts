@@ -1,7 +1,0 @@
-fullnameOverride: "localnet-sirato"
-
-# sirato configuration
-sirato:
-  nodeEndpoint: "http://localnet-rpc-1:8545"
-  storage: 1Gi
-  # storageClassName: gp3
