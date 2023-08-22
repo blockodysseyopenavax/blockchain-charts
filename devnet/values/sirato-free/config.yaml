@@ -1,7 +1,0 @@
-fullnameOverride: "devnet-sirato"
-
-# sirato configuration
-sirato:
-  nodeEndpoint: "http://devnet-rpc-1:8545"
-  storage: 1Gi
-  # storageClassName: gp3
