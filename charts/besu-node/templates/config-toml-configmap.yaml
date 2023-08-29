@@ -14,6 +14,9 @@ data:
     genesis-file="/opt/besu/genesis.json"
     min-gas-price=0
     host-allowlist=["*"]
+    {{- if .Values.node.logging }}
+    logging={{ .Values.node.logging | quote }}
+    {{- end}}
     #logging="INFO" ## default
     #logging="DEBUG"
     #logging="TRACE"

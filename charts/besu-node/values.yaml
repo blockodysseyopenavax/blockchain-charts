@@ -12,6 +12,7 @@ network:
 
 # node configuration
 node:
+  logging: ""
   image:
     repository: hyperledger/besu
     tag: ""
