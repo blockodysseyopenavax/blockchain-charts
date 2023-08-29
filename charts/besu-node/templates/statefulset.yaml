@@ -22,6 +22,18 @@ spec:
     spec:
       #serviceAccountName: {{ include "besu-node.fullname" . }}
       #terminationGracePeriodSeconds: 10
+      {{- with .Values.node.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.node.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.node.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       initContainers:
       - name: besu-volume-permission
         image: busybox

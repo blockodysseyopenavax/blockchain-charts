@@ -17,3 +17,6 @@ node:
   storage: 1Gi
   storageClassName: ""
   bootnodes: []
+  nodeSelector: {}
+  affinity: {}
+  tolerations: []
