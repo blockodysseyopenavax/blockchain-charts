@@ -45,7 +45,7 @@ spec:
           runAsUser: 0
       containers:
       - name: besu
-        image: hyperledger/besu:23.4.0
+        image: "{{ .Values.node.image.repository }}:{{ .Values.node.image.tag | default .Chart.AppVersion }}"
         ports:
         - containerPort: 8545
           name: rpc-http
