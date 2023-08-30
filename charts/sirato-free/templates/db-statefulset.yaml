@@ -29,7 +29,7 @@ spec:
         - containerPort: 27017
   volumeClaimTemplates:
   - metadata:
-      name: db
+      name: data
     spec:
       accessModes: ["ReadWriteOnce"]
       {{- if .Values.sirato.storageClassName }}
