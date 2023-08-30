@@ -22,6 +22,18 @@ spec:
     spec:
       #serviceAccountName: {{ include "sirato-free.fullname" . }}-db
       #terminationGracePeriodSeconds: 10
+      {{- with .Values.sirato.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.sirato.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.sirato.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
       - name: db
         image: mongo

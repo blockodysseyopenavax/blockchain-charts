@@ -6,3 +6,6 @@ sirato:
   nodeEndpoint: ""
   storage: 1Gi
   storageClassName: ""
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
