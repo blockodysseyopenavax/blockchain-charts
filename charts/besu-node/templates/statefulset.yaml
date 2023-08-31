@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: {{ include "besu-node.fullname" . }}
-  namespace: {{ .Release.Namespace }}
   labels:
     {{- include "besu-node.labels" . | nindent 4 }}
     app.kubernetes.io/component: node
