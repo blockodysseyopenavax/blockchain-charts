@@ -4,6 +4,5 @@ metadata:
   name: {{ include "besu-node.fullname" . }}-public-key
   labels:
     {{- include "besu-node.labels" . | nindent 4 }}
-    app.kubernetes.io/component: public-key
 data:
   key.pub: {{ .Values.node.publicKey | trim | quote }}

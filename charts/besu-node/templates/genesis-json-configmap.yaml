@@ -4,7 +4,6 @@ metadata:
   name: {{ include "besu-node.fullname" . }}-genesis-json
   labels:
     {{- include "besu-node.labels" . | nindent 4 }}
-    app.kubernetes.io/component: genesis-json
 data:
   genesis.json: |-
     {

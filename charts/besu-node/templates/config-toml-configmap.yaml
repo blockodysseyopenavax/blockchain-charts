@@ -4,7 +4,6 @@ metadata:
   name: {{ include "besu-node.fullname" . }}-config-toml
   labels:
     {{- include "besu-node.labels" . | nindent 4 }}
-    app.kubernetes.io/component: config-toml
 data:
   config.toml: |-
     # https://besu.hyperledger.org/stable/public-networks/reference/cli/options

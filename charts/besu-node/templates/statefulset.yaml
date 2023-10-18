@@ -4,12 +4,10 @@ metadata:
   name: {{ include "besu-node.fullname" . }}
   labels:
     {{- include "besu-node.labels" . | nindent 4 }}
-    app.kubernetes.io/component: node
 spec:
   selector:
     matchLabels:
       {{- include "besu-node.selectorLabels" . | nindent 6 }}
-      app.kubernetes.io/component: node
   serviceName: {{ include "besu-node.fullname" . }}
   #replicas: 1 #default
   #minReadySeconds: 0 #default
@@ -17,7 +15,6 @@ spec:
     metadata:
       labels:
         {{- include "besu-node.selectorLabels" . | nindent 8 }}
-        app.kubernetes.io/component: node
     spec:
       #serviceAccountName: {{ include "besu-node.fullname" . }}
       #terminationGracePeriodSeconds: 10

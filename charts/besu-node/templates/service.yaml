@@ -4,12 +4,10 @@ metadata:
   name: {{ include "besu-node.fullname" . }}
   labels:
     {{- include "besu-node.labels" . | nindent 4 }}
-    app.kubernetes.io/component: node
 spec:
   clusterIP: None
   selector:
     {{- include "besu-node.selectorLabels" . | nindent 4 }}
-    app.kubernetes.io/component: node
   ports:
   - port: 8545
     name: rpc-http
