@@ -61,7 +61,9 @@ Create the name of the service account to use
 {{- end }}
 {{- end }}
 
-{{- /* Define the toEnodePublicKey function */}}
+{{/*
+Define the toEnodePublicKey function
+*/}}
 {{- define "besu-node.toEnodePublicKey" -}}
 {{- $publicKey := . }}
 {{- if hasPrefix "0x" $publicKey }}
@@ -73,7 +75,9 @@ Create the name of the service account to use
 {{- $publicKey }}
 {{- end }}
 
-{{/* Define bootnodes array */}}
+{{/*
+Define bootnodes array
+*/}}
 {{- define "besu-node.bootnodes" -}}
 {{- "[" -}}
 {{- range $index, $value := .Values.node.bootnodes -}}
