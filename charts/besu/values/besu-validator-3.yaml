@@ -48,9 +48,9 @@ genesis:
     zeroBaseFee: true
     consensus:
       algorithm: qbft
-      blockperiodseconds: 12
+      blockperiodseconds: 2
       epochlength: 32
-      requesttimeoutseconds: 24
+      requesttimeoutseconds: 4
   gasPrice: "0x0"
   baseFeePerGas: "0x0"
   nonce: "0x0"
@@ -60,3 +60,9 @@ genesis:
   coinbase: "0x0000000000000000000000000000000000000000"
   gasLimit: "0x1c9c380"
   extraData: "0xf87aa00000000000000000000000000000000000000000000000000000000000000000f85494ae4675fe25077e5d20da2c1117e10afb95658511942457a2ccc681e2afd55eac5f4e7bb0a9c41e3378948607e549a23c7c455f2b84e4d646e87d8df6075194e206d08e409d1f0e9ecce89c6694a3ff25f345c4c080c0"
+
+persistence:
+  enabled: true
+  accessModes: ["ReadWriteOnce"]
+  # storageClassName: "gp3"
+  size: 1Gi
