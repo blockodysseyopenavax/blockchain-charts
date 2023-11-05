@@ -21,9 +21,10 @@ node:
   storage: 1Gi
   storageClassName: ""
   bootnodes: []
-  nodeSelector: {}
-  affinity: {}
-  tolerations: []
 
 podAnnotaions: {}
 podLabels: {}
+
+nodeSelector: {}
+affinity: {}
+tolerations: []
