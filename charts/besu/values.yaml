@@ -138,3 +138,9 @@ genesis:
   coinbase: "0x0000000000000000000000000000000000000000"
   gasLimit: "0x1c9c380"
   extraData: ""
+
+persistence:
+  enabled: false
+  accessModes: ["ReadWriteOnce"]
+  storageClassName: ""
+  size: 1Gi
