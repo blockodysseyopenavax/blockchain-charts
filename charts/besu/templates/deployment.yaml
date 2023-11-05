@@ -27,26 +27,84 @@ spec:
       serviceAccountName: {{ include "besu.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      # initContainers:
+      # - name: {{ .Chart.Name }}-volume-permission
+      #   image: busybox
+      #   command: ["sh", "-c", "chown -R 1000:1000 {{ .Values.config.dataPath }}"]
+      #   volumeMounts:
+      #   - name: data
+      #     mountPath: {{ .Values.config.dataPath }}
+      #   securityContext:
+      #     runAsUser: 0
       containers:
-        - name: {{ .Chart.Name }}
-          securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          ports:
-            - name: http
-              containerPort: {{ .Values.service.port }}
-              protocol: TCP
-          # livenessProbe:
-          #   httpGet:
-          #     path: /liveness
-          #     port: http
-          # readinessProbe:
-          #   httpGet:
-          #     path: /readiness
-          #     port: http
-          resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+      - name: {{ .Chart.Name }}
+        securityContext:
+          {{- toYaml .Values.securityContext | nindent 10 }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        args: ["--config-file={{ .Values.configFile }}"]
+        ports:
+        - name: rlpx
+          containerPort: {{ .Values.config.p2pPort }}
+        - name: discport
+          containerPort: {{ .Values.config.p2pPort }}
+          protocol: UDP
+        - name: rpc-http
+          containerPort: {{ .Values.config.rpcHttpPort }}
+        - name: rpc-ws
+          containerPort: {{ .Values.config.rpcWsPort }}
+        - name: graphql-http
+          containerPort: {{ .Values.config.graphqlHttpPort }}
+        livenessProbe:
+          httpGet:
+            path: /liveness
+            port: rpc-http
+        # readinessProbe:
+        #   httpGet:
+        #     path: /readiness
+        #     port: rpc-http
+        resources:
+          {{- toYaml .Values.resources | nindent 10 }}
+        volumeMounts:
+        - name: config-toml
+          mountPath: {{ .Values.configFile }}
+          subPath: config.toml
+          readOnly: true
+        {{- if .Values.private }}
+        - name: genesis-json
+          mountPath: {{ .Values.config.genesisFile }}
+          subPath: genesis.json
+          readOnly: true
+        {{- end }}
+        {{- if .Values.nodePrivateKey }}
+        - name: node-private-key
+          mountPath: {{ .Values.config.nodePrivateKeyFile }}
+          subPath: key
+          readOnly: true
+        {{- end }}
+      volumes:
+      - name: config-toml
+        configMap:
+          name: {{ include "besu.fullname" . }}-configmap
+          items:
+          - key: config.toml
+            path: config.toml
+      {{- if .Values.private }}
+      - name: genesis-json
+        configMap:
+          name: {{ include "besu.fullname" . }}-configmap
+          items:
+          - key: genesis.json
+            path: genesis.json
+      {{- end }}
+      {{- if .Values.nodePrivateKey }}
+      - name: node-private-key
+        secret:
+          secretName: {{ include "besu.fullname" . }}-secret
+          items:
+          - key: key
+            path: key
+      {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

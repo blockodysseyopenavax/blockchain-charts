@@ -7,9 +7,16 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-    - port: {{ .Values.service.port }}
-      targetPort: http
-      protocol: TCP
-      name: http
+    - name: rlpx
+      port: {{ .Values.config.p2pPort }}
+    - name: discport
+      port: {{ .Values.config.p2pPort }}
+      protocol: UDP
+    - name: rpc-http
+      port: {{ .Values.config.rpcHttpPort }}
+    - name: rpc-ws
+      port: {{ .Values.config.rpcWsPort }}
+    - name: graphql-http
+      port: {{ .Values.config.graphqlHttpPort }}
   selector:
     {{- include "besu.selectorLabels" . | nindent 4 }}

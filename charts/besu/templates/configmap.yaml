@@ -1,0 +1,80 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "besu.fullname" . }}-configmap
+  labels:
+    {{- include "besu.labels" . | nindent 4 }}
+data:
+  config.toml: |
+    # minimal sensible defaults
+    # https://besu.hyperledger.org/stable/public-networks/reference/cli/options
+
+    # network
+    Xdns-enabled = {{ .Values.config.XdnsEnabled }}
+    Xdns-update-enabled = {{ .Values.config.XdnsUpdateEnabled }}
+    {{- if .Values.config.bootnodes }}
+    {{- include "besu.config.bootnodes" . | nindent 4 }}
+    {{- end }}
+
+    # node
+    genesis-file = {{ .Values.config.genesisFile | quote }}
+    data-path = {{ .Values.config.dataPath | quote }}
+    node-private-key-file = {{ .Values.config.nodePrivateKeyFile | quote }}
+    {{- include "besu.config.hostAllowlist" . | nindent 4 }}
+    logging = {{ .Values.config.logging | quote }}
+    min-gas-price = {{ .Values.config.minGasPrice }}
+
+    # p2p
+    p2p-port = {{ .Values.config.p2pPort }}
+
+    # rpc http
+    rpc-http-enabled = {{ .Values.config.rpcHttpEnabled }}
+    rpc-http-host = {{ .Values.config.rpcHttpHost | quote }}
+    rpc-http-port = {{ .Values.config.rpcHttpPort }}
+    {{- include "besu.config.rpcHttpApi" . | nindent 4 }}
+    {{- include "besu.config.rpcHttpCorsOrigins" . | nindent 4 }}
+
+    # rpc http
+    rpc-ws-enabled = {{ .Values.config.rpcWsEnabled }}
+    rpc-ws-host = {{ .Values.config.rpcWsHost | quote }}
+    rpc-ws-port = {{ .Values.config.rpcWsPort }}
+    {{- include "besu.config.rpcWsApi" . | nindent 4 }}
+
+    # graphql http
+    graphql-http-enabled = {{ .Values.config.graphqlHttpEnabled }}
+    graphql-http-host = {{ .Values.config.graphqlHttpHost | quote }}
+    graphql-http-port = {{ .Values.config.graphqlHttpPort }}
+    {{- include "besu.config.graphqlHttpCorsOrigins" . | nindent 4 }}
+
+  {{ if .Values.private }}
+  genesis.json: |
+    {
+      "config": {
+        "chainId": {{ .Values.genesis.config.chainId }},
+        {{- if .Values.genesis.config.eip1559 }}
+        "londonBlock": 0,
+        "zeroBaseFee": {{ .Values.genesis.config.zeroBaseFee }},
+        {{- else }}
+        "berlinBlock": 0,
+        {{- end }}
+        "{{ .Values.genesis.config.consensus.algorithm }}": {
+          "blockperiodseconds": {{ .Values.genesis.config.consensus.blockperiodseconds }},
+          "epochlength": {{ .Values.genesis.config.consensus.epochlength }},
+          "requesttimeoutseconds": {{ .Values.genesis.config.consensus.requesttimeoutseconds }}
+        }
+      },
+      {{- if .Values.genesis.config.eip1559 }}
+      "baseFeePerGas": {{ .Values.genesis.baseFeePerGas | quote }},
+      {{- else }}
+      "gasPrice": {{ .Values.genesis.gasPrice | quote }},
+      {{- end }}
+      "nonce": {{ .Values.genesis.nonce | quote }},
+      "difficulty": {{ .Values.genesis.difficulty | quote }},
+      "mixHash": {{ .Values.genesis.mixHash | quote }},
+      "timestamp": {{ .Values.genesis.timestamp | quote }},
+      "coinbase": {{ .Values.genesis.coinbase | quote }},
+      "gasLimit": {{ .Values.genesis.gasLimit | quote }},
+      "extraData": {{ .Values.genesis.extraData | quote }},
+      "alloc": {}
+    }
+  {{ end }}

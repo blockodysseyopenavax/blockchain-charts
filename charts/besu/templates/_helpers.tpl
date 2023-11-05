@@ -60,3 +60,75 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Define bootnodes array (multiline)
+*/}}
+{{- define "besu.config.bootnodes" -}}
+{{- "bootnodes = [" }}
+{{- range $index, $value := .Values.config.bootnodes }}
+  {{- if $index }}{{- ", " }}{{- end }}
+  {{ quote $value }}
+  {{- end }}
+{{ "]" }}
+{{- end }}
+
+{{/*
+Define host-allowlist array (oneline)
+*/}}
+{{- define "besu.config.hostAllowlist" -}}
+{{- "host-allowlist = [" }}
+{{- range $index, $value := .Values.config.hostAllowlist }}
+  {{- if $index }}{{- ", " }}{{- end }}
+  {{- quote $value }}
+  {{- end }}
+{{- "]" }}
+{{- end }}
+
+{{/*
+Define rpc-http-api array (oneline)
+*/}}
+{{- define "besu.config.rpcHttpApi" -}}
+{{- "rpc-http-api = [" }}
+{{- range $index, $value := .Values.config.rpcHttpApi }}
+  {{- if $index }}{{- ", " }}{{- end }}
+  {{- quote $value }}
+  {{- end }}
+{{- "]" }}
+{{- end }}
+
+{{/*
+Define rpc-http-cors-origins array (oneline)
+*/}}
+{{- define "besu.config.rpcHttpCorsOrigins" -}}
+{{- "rpc-http-cors-origins = [" }}
+{{- range $index, $value := .Values.config.rpcHttpCorsOrigins }}
+  {{- if $index }}{{- ", " }}{{- end }}
+  {{- quote $value }}
+  {{- end }}
+{{- "]" }}
+{{- end }}
+
+{{/*
+Define rpc-ws-api array (oneline)
+*/}}
+{{- define "besu.config.rpcWsApi" -}}
+{{- "rpc-ws-api = [" }}
+{{- range $index, $value := .Values.config.rpcWsApi }}
+  {{- if $index }}{{- ", " }}{{- end }}
+  {{- quote $value }}
+  {{- end }}
+{{- "]" }}
+{{- end }}
+
+{{/*
+Define graphql-http-cors-origins array (oneline)
+*/}}
+{{- define "besu.config.graphqlHttpCorsOrigins" -}}
+{{- "graphql-http-cors-origins = [" }}
+{{- range $index, $value := .Values.config.graphqlHttpCorsOrigins }}
+  {{- if $index }}{{- ", " }}{{- end }}
+  {{- quote $value }}
+  {{- end }}
+{{- "]" }}
+{{- end }}

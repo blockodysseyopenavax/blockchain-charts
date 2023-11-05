@@ -38,7 +38,6 @@ securityContext: {}
 
 service:
   type: ClusterIP
-  port: 8545
 
 ingress:
   enabled: false
@@ -80,3 +79,62 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+### besu ###
+private: true
+nodePrivateKey: ""
+
+### besu config.toml ###
+configFile: /opt/besu/config.toml
+config:
+  # network
+  XdnsEnabled: true
+  XdnsUpdateEnabled: true
+  bootnodes: []
+
+  # node
+  dataPath: /opt/besu/database
+  genesisFile: /opt/besu/genesis.json
+  nodePrivateKeyFile: /opt/besu/key
+  hostAllowlist: ["*"]
+  logging: INFO
+  minGasPrice: 0
+
+  p2pPort: 30303
+
+  rpcHttpEnabled: true
+  rpcHttpHost: 127.0.0.1
+  rpcHttpPort: 8545
+  rpcHttpApi: ["ETH", "NET", "WEB3", "ADMIN", "CLIQUE", "DEBUG", "EEA", "IBFT", "MINER", "PERM", "PLUGINS", "PRIV", "QBFT", "TRACE", "TXPOOL"]
+  rpcHttpCorsOrigins: ["*"]
+
+  rpcWsEnabled: true
+  rpcWsHost: 127.0.0.1
+  rpcWsPort: 8546
+  rpcWsApi: ["ETH", "NET", "WEB3", "ADMIN", "CLIQUE", "DEBUG", "EEA", "IBFT", "MINER", "PERM", "PLUGINS", "PRIV", "QBFT", "TRACE", "TXPOOL"]
+
+  graphqlHttpEnabled: true
+  graphqlHttpHost: 127.0.0.1
+  graphqlHttpPort: 8547
+  graphqlHttpCorsOrigins: ["*"]
+
+### besu genesis.json ###
+genesis:
+  config:
+    chainId: 31337
+    eip1559: true
+    zeroBaseFee: true
+    consensus:
+      algorithm: qbft
+      blockperiodseconds: 12
+      epochlength: 32
+      requesttimeoutseconds: 24
+  gasPrice: "0x0"
+  baseFeePerGas: "0x0"
+  nonce: "0x0"
+  difficulty: "0x1"
+  mixHash: "0x63746963616c2062797a616e74696e65206661756c7420746f6c6572616e6365"
+  timestamp: "0x0"
+  coinbase: "0x0000000000000000000000000000000000000000"
+  gasLimit: "0x1c9c380"
+  extraData: ""

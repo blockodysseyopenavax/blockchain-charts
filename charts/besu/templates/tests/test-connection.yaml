@@ -10,6 +10,6 @@ spec:
   containers:
     - name: cast-block-number
       image: ghcr.io/foundry-rs/foundry
-      command: ['cast', 'block-number', 'http://{{ include "besu.fullname" . }}:{{ .Values.service.port }}']
-      args: ['{{ include "besu.fullname" . }}:{{ .Values.service.port }}']
+      command: ['cast']
+      args: ['block-number', '--rpc-url', 'http://{{ include "besu.fullname" . }}:{{ .Values.config.rpcHttpPort }}']
   restartPolicy: Never
