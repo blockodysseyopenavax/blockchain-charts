@@ -1,0 +1,62 @@
+### besu ###
+private: true
+nodePrivateKey: ""
+
+### besu config.toml ###
+configFile: /opt/besu/config.toml
+config:
+  # network
+  XdnsEnabled: true
+  XdnsUpdateEnabled: true
+  bootnodes:
+  - "enode://22631662a5c294a48ee177d9d3134da3ce0c0aa577aa120ca073ba6e1b07e1885976c54b164a947adacc88e27bd67228c83753e58ef5cb3395c1e477f9c8a7d3@besu-validator-1:30303"
+  - "enode://7477d1eb2a4accd05b1c7db38cf3054d4a8cdf4efc5eff7d8a282ac9abaac06dd4266362b58c4c10cab0daebcbdd493023f03fb719f80039e72a4617cd57c6ae@besu-validator-2:30303"
+  - "enode://2ffd1612758ab5d93a66ad72fd35a043f180d977c1201213f715502a686c670fbbd8587f5455530035c52b824262ee44f981709e7292413728a81af3794aae19@besu-validator-3:30303"
+  - "enode://2e95e5b1c71df511efd214212c0d39bac9fb1dde388582aac786a77f1462b7b8b30c9f75f1d7eebeae436173de1b72789f9dd94f0da3a5581b9cd34563d7fdc8@besu-validator-4:30303"
+
+  # node
+  dataPath: /opt/besu/database
+  genesisFile: /opt/besu/genesis.json
+  nodePrivateKeyFile: /opt/besu/key
+  hostAllowlist: ["*"]
+  logging: INFO
+  minGasPrice: 0
+
+  p2pPort: 30303
+
+  rpcHttpEnabled: true
+  rpcHttpHost: 127.0.0.1
+  rpcHttpPort: 8545
+  rpcHttpApi: ["ETH", "NET", "WEB3", "ADMIN", "CLIQUE", "DEBUG", "EEA", "IBFT", "MINER", "PERM", "PLUGINS", "PRIV", "QBFT", "TRACE", "TXPOOL"]
+  rpcHttpCorsOrigins: ["*"]
+
+  rpcWsEnabled: true
+  rpcWsHost: 127.0.0.1
+  rpcWsPort: 8546
+  rpcWsApi: ["ETH", "NET", "WEB3", "ADMIN", "CLIQUE", "DEBUG", "EEA", "IBFT", "MINER", "PERM", "PLUGINS", "PRIV", "QBFT", "TRACE", "TXPOOL"]
+
+  graphqlHttpEnabled: true
+  graphqlHttpHost: 127.0.0.1
+  graphqlHttpPort: 8547
+  graphqlHttpCorsOrigins: ["*"]
+
+### besu genesis.json ###
+genesis:
+  config:
+    chainId: 31337
+    eip1559: true
+    zeroBaseFee: true
+    consensus:
+      algorithm: qbft
+      blockperiodseconds: 12
+      epochlength: 32
+      requesttimeoutseconds: 24
+  gasPrice: "0x0"
+  baseFeePerGas: "0x0"
+  nonce: "0x0"
+  difficulty: "0x1"
+  mixHash: "0x63746963616c2062797a616e74696e65206661756c7420746f6c6572616e6365"
+  timestamp: "0x0"
+  coinbase: "0x0000000000000000000000000000000000000000"
+  gasLimit: "0x1c9c380"
+  extraData: "0xf87aa00000000000000000000000000000000000000000000000000000000000000000f85494ae4675fe25077e5d20da2c1117e10afb95658511942457a2ccc681e2afd55eac5f4e7bb0a9c41e3378948607e549a23c7c455f2b84e4d646e87d8df6075194e206d08e409d1f0e9ecce89c6694a3ff25f345c4c080c0"
