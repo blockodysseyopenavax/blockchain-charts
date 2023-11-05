@@ -13,8 +13,15 @@ spec:
   #minReadySeconds: 0 #default
   template:
     metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       labels:
         {{- include "besu-node.selectorLabels" . | nindent 8 }}
+      {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
     spec:
       #serviceAccountName: {{ include "besu-node.fullname" . }}
       #terminationGracePeriodSeconds: 10

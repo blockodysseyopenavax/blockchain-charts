@@ -24,3 +24,6 @@ node:
   nodeSelector: {}
   affinity: {}
   tolerations: []
+
+podAnnotaions: {}
+podLabels: {}
