@@ -1,0 +1,246 @@
+---
+# Source: besu/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: besu
+  labels:
+    helm.sh/chart: besu-0.0.1
+    app.kubernetes.io/name: besu
+    app.kubernetes.io/instance: besu
+    app.kubernetes.io/version: "23.10.0"
+    app.kubernetes.io/managed-by: Helm
+---
+# Source: besu/templates/secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: besu-secret
+  labels:
+    helm.sh/chart: besu-0.0.1
+    app.kubernetes.io/name: besu
+    app.kubernetes.io/instance: besu
+    app.kubernetes.io/version: "23.10.0"
+    app.kubernetes.io/managed-by: Helm
+stringData:
+  key: ""
+---
+# Source: besu/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: besu-configmap
+  labels:
+    helm.sh/chart: besu-0.0.1
+    app.kubernetes.io/name: besu
+    app.kubernetes.io/instance: besu
+    app.kubernetes.io/version: "23.10.0"
+    app.kubernetes.io/managed-by: Helm
+data:
+  config.toml: |
+    # minimal sensible defaults
+    # https://besu.hyperledger.org/stable/public-networks/reference/cli/options
+
+    # network
+    Xdns-enabled = true
+    Xdns-update-enabled = true
+
+    # node
+    genesis-file = "/opt/besu/genesis.json"
+    data-path = "/opt/besu/database"
+    node-private-key-file = "/opt/besu/key"
+    host-allowlist = ["*"]
+    logging = "INFO"
+    min-gas-price = 0
+
+    # p2p
+    p2p-port = 30303
+
+    # rpc http
+    rpc-http-enabled = true
+    rpc-http-host = "127.0.0.1"
+    rpc-http-port = 8545
+    rpc-http-api = ["ETH", "NET", "WEB3", "ADMIN", "CLIQUE", "DEBUG", "EEA", "IBFT", "MINER", "PERM", "PLUGINS", "PRIV", "QBFT", "TRACE", "TXPOOL"]
+    rpc-http-cors-origins = ["*"]
+
+    # rpc http
+    rpc-ws-enabled = true
+    rpc-ws-host = "127.0.0.1"
+    rpc-ws-port = 8546
+    rpc-ws-api = ["ETH", "NET", "WEB3", "ADMIN", "CLIQUE", "DEBUG", "EEA", "IBFT", "MINER", "PERM", "PLUGINS", "PRIV", "QBFT", "TRACE", "TXPOOL"]
+
+    # graphql http
+    graphql-http-enabled = true
+    graphql-http-host = "127.0.0.1"
+    graphql-http-port = 8547
+    graphql-http-cors-origins = ["*"]
+
+  
+  genesis.json: |
+    {
+      "config": {
+        "chainId": 31337,
+        "contractSizeLimit": 24576
+        "londonBlock": 0,
+        "zeroBaseFee": true,
+        "qbft": {
+          "blockperiodseconds": 12,
+          "epochlength": 32,
+          "requesttimeoutseconds": 24
+        }
+      },
+      "baseFeePerGas": "0x0",
+      "nonce": "0x0",
+      "difficulty": "0x1",
+      "mixHash": "0x63746963616c2062797a616e74696e65206661756c7420746f6c6572616e6365",
+      "timestamp": "0x0",
+      "coinbase": "0x0000000000000000000000000000000000000000",
+      "gasLimit": "0x1c9c380",
+      "extraData": "",
+      "alloc": {}
+    }
+---
+# Source: besu/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: besu
+  labels:
+    helm.sh/chart: besu-0.0.1
+    app.kubernetes.io/name: besu
+    app.kubernetes.io/instance: besu
+    app.kubernetes.io/version: "23.10.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: ClusterIP
+  ports:
+    - name: rlpx
+      port: 30303
+    - name: discport
+      port: 30303
+      protocol: UDP
+    - name: rpc-http
+      port: 8545
+    - name: rpc-ws
+      port: 8546
+    - name: graphql-http
+      port: 8547
+  selector:
+    app.kubernetes.io/name: besu
+    app.kubernetes.io/instance: besu
+---
+# Source: besu/templates/statefulset.yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: besu
+  labels:
+    helm.sh/chart: besu-0.0.1
+    app.kubernetes.io/name: besu
+    app.kubernetes.io/instance: besu
+    app.kubernetes.io/version: "23.10.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: besu
+      app.kubernetes.io/instance: besu
+  serviceName: besu
+  template:
+    metadata:
+      labels:
+        helm.sh/chart: besu-0.0.1
+        app.kubernetes.io/name: besu
+        app.kubernetes.io/instance: besu
+        app.kubernetes.io/version: "23.10.0"
+        app.kubernetes.io/managed-by: Helm
+    spec:
+      serviceAccountName: besu
+      securityContext:
+        {}
+      initContainers:
+      - name: besu-volume-permission
+        image: busybox
+        command: ["sh", "-c", "chown -R 1000:1000 /opt/besu/database"]
+        volumeMounts:
+        - name: data
+          mountPath: /opt/besu/database
+        securityContext:
+          runAsUser: 0
+      containers:
+      - name: besu
+        securityContext:
+          {}
+        image: "hyperledger/besu:23.10.0"
+        imagePullPolicy: IfNotPresent
+        args: ["--config-file=/opt/besu/config.toml"]
+        ports:
+        - name: rlpx
+          containerPort: 30303
+        - name: discport
+          containerPort: 30303
+          protocol: UDP
+        - name: rpc-http
+          containerPort: 8545
+        - name: rpc-ws
+          containerPort: 8546
+        - name: graphql-http
+          containerPort: 8547
+        livenessProbe:
+          httpGet:
+            path: /liveness
+            port: rpc-http
+        # readinessProbe:
+        #   httpGet:
+        #     path: /readiness
+        #     port: rpc-http
+        resources:
+          {}
+        volumeMounts:
+        - name: config-toml
+          mountPath: /opt/besu/config.toml
+          subPath: config.toml
+          readOnly: true
+        - name: genesis-json
+          mountPath: /opt/besu/genesis.json
+          subPath: genesis.json
+          readOnly: true
+        - name: data
+          mountPath: /opt/besu/database
+      volumes:
+      - name: config-toml
+        configMap:
+          name: besu-configmap
+          items:
+          - key: config.toml
+            path: config.toml
+      - name: genesis-json
+        configMap:
+          name: besu-configmap
+          items:
+          - key: genesis.json
+            path: genesis.json
+      - name: data
+        emptyDir: {}
+---
+# Source: besu/templates/tests/test-connection.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "besu-test-connection"
+  labels:
+    helm.sh/chart: besu-0.0.1
+    app.kubernetes.io/name: besu
+    app.kubernetes.io/instance: besu
+    app.kubernetes.io/version: "23.10.0"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: cast-block-number
+      image: ghcr.io/foundry-rs/foundry
+      command: ['cast']
+      args: ['block-number', '--rpc-url', 'http://besu:8545']
+  restartPolicy: Never

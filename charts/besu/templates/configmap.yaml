@@ -51,6 +51,7 @@ data:
     {
       "config": {
         "chainId": {{ .Values.genesis.config.chainId }},
+        "contractSizeLimit": {{ .Values.genesis.config.contractSizeLimit }},
         {{- if .Values.genesis.config.eip1559 }}
         "londonBlock": 0,
         "zeroBaseFee": {{ .Values.genesis.config.zeroBaseFee }},

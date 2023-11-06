@@ -122,6 +122,7 @@ config:
 genesis:
   config:
     chainId: 31337
+    contractSizeLimit: 24576
     eip1559: true
     zeroBaseFee: true
     consensus:
