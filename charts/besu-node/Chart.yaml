@@ -1,5 +1,0 @@
-apiVersion: v2
-name: besu-node
-description: besu node chart
-version: 0.0.1
-appVersion: 23.4.0
