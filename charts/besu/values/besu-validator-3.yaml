@@ -50,7 +50,7 @@ genesis:
     consensus:
       algorithm: qbft
       blockperiodseconds: 2
-      epochlength: 32
+      epochlength: 30000
       requesttimeoutseconds: 4
   gasPrice: "0x0"
   baseFeePerGas: "0x0"
