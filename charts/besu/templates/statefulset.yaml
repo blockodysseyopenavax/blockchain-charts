@@ -44,7 +44,8 @@ spec:
           {{- toYaml .Values.securityContext | nindent 10 }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
-        args: ["--config-file={{ .Values.configFile }}"]
+        args:
+          {{- toJson .Values.args | nindent 10 }}
         ports:
         - name: rlpx
           containerPort: {{ .Values.config.p2pPort }}

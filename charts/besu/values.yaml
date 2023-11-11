@@ -83,6 +83,7 @@ affinity: {}
 ### besu ###
 private: true
 nodePrivateKey: ""
+args: ["--config-file=/opt/besu/config.toml"]
 
 ### besu config.toml ###
 configFile: /opt/besu/config.toml
